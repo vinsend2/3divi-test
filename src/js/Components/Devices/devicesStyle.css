@@ -1,0 +1,44 @@
+.device-list__item{
+    width: inherit;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px 0px;
+    border: 2px solid z;
+    border-radius: 6px;
+    transition: .3s linear;
+}
+ .device-list__item label::after{  
+    content: "";
+    display: inline-block;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    background-color: white;   
+    transition: .3s linear;
+    margin-right: 6px;
+    vertical-align: baseline;   
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: bold;
+    color: #808080;
+}
+.device-list__item input[type=checkbox]:checked + label::after {
+     content: "\2713";
+    
+}
+.device-list__item:hover, label:hover{
+    cursor: pointer;
+    font-weight: 600;
+}
+.device-list__item-header{
+    font-size: 20px;
+}
+.device-list__item-checkbox{
+    width: 20px;
+    height: 20px;
+}
+
