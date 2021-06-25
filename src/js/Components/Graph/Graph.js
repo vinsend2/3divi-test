@@ -39,19 +39,19 @@ function Graph(props) {
                 let index = new Date(date["n"]).getDay();
                 date["o"].forEach((user) => {
                     // eslint-disable-next-line default-case
-                    if (user["n"] == "adult") {
+                    if (user["n"] === "adult") {
                         graphData[index][0] += user["v"]
                     }
-                    if (user["n"] == "kid") {
+                    if (user["n"] === "kid") {
                         graphData[index][1] += user["v"]
                     }
-                    if (user["n"] == "old") {
+                    if (user["n"] === "old") {
                         graphData[index][2] += user["v"]
                     }
-                    if (user["n"] == "undefined") {
+                    if (user["n"] === "undefined") {
                         graphData[index][3] += user["v"]
                     }
-                    if (user["n"] == "young") {
+                    if (user["n"] === "young") {
                         graphData[index][4] += user["v"]
                     }
                 });
