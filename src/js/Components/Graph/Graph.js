@@ -1,7 +1,7 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import {useSelector} from 'react-redux';
 import styled from 'styled-components';
+import GraphService from '../../../services/graph-service';
 
 
 
@@ -17,149 +17,61 @@ const GraphHeader = styled.section`
     font-size: 21px;
 `;
 
-function Graph(props) { 
-
-    const state = useSelector(state => state);
-
-    let graphData = [
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0]
+function Graph() { 
+    
+    const prototype = {       
+        viewchanel: {
+            views: [
+                {
+                    label: "Undefined",
+                    data: GraphService(3)
+                },
+                {
+                    label: "Kids",
+                    data: GraphService (1)
+                },
+                {
+                    label: "Young Adult",
+                    data: GraphService (4),
+                },
+                {
+                    label: "Adult",
+                    data: GraphService (0),
+                },
+                {
+                    label: "Senior",
+                    data: GraphService (2)
+                }
+            ]
+        }
+    };
+    const colors = [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(255, 99, 132, 0.2)'
     ];
 
-    state.arrObjs.forEach((item) => {
-        if (state.activeDevices.indexOf(item["n"]) !== -1) {
+    const viewsdata = prototype.viewchanel.views.map(
+        (views, index) => {
+            return {
+                label: views.label,
+                backgroundColor: colors[index],
+                data: views.data,                
+            };
+        }    );  
 
-
-            item["o"].forEach((date) => {
-                let index = new Date(date["n"]).getDay();
-                date["o"].forEach((user) => {
-                    // eslint-disable-next-line default-case
-                    if (user["n"] === "adult") {
-                        graphData[index][0] += user["v"]
-                    }
-                    if (user["n"] === "kid") {
-                        graphData[index][1] += user["v"]
-                    }
-                    if (user["n"] === "old") {
-                        graphData[index][2] += user["v"]
-                    }
-                    if (user["n"] === "undefined") {
-                        graphData[index][3] += user["v"]
-                    }
-                    if (user["n"] === "young") {
-                        graphData[index][4] += user["v"]
-                    }
-                });
-            });
-        }
-    });
-    
-
+    const data = {       
+       labels: ["March", "April", "May", "June", "July", "August", "September"],
+        datasets: viewsdata
+    };
     
     return (
         <StyledGraph>
             <GraphHeader>Total views: Age (by day of week)</GraphHeader>
-
             <Bar 
-                data={{
-                    labels: ['Monday', 'Tuesday', ' Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-                    datasets: [
-                        {
-                            label: 'Undefined',
-                            data: [
-                                graphData[1][3], 
-                                graphData[2][3],
-                                graphData[3][3], 
-                                graphData[4][3], 
-                                graphData[5][3], 
-                                graphData[6][3], 
-                                graphData[0][3]
-                            ],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)'
-                            ],
-                            borderColor:'rgba(255, 255, 233, 1)',
-                            borderWidth: 1,
-                        },
-
-                        {
-                            label: 'Kids',
-                            data: [
-                                graphData[1][1], 
-                                graphData[2][1],
-                                graphData[3][1], 
-                                graphData[4][1], 
-                                graphData[5][1], 
-                                graphData[6][1], 
-                                graphData[0][1]
-                            ],
-                            backgroundColor: [
-                                'rgba(153, 102, 255, 0.2)',
-                            ],
-                            borderColor: 'rgba(255, 255, 233, 1)',
-                            borderWidth: 1,
-                        },
-
-                        {
-                            label: 'Young',
-                            data: [
-                                graphData[1][4], 
-                                graphData[2][4],
-                                graphData[3][4], 
-                                graphData[4][4], 
-                                graphData[5][4], 
-                                graphData[6][4], 
-                                graphData[0][4]
-                            ],
-                            backgroundColor: [
-                                'rgba(255, 205, 86, 0.2)',
-                            ],
-                            borderColor: 'rgba(255, 255, 233, 1)',
-                            borderWidth: 1,
-                        },
-
-                        {
-                            label: 'Adult',
-                            data: [
-                                graphData[1][0], 
-                                graphData[2][0],
-                                graphData[3][0], 
-                                graphData[4][0], 
-                                graphData[5][0], 
-                                graphData[6][0], 
-                                graphData[0][0]
-                            ],
-                            backgroundColor: [
-                                'rgba(75, 192, 192, 0.2)',
-                            ],
-                            borderColor: 'rgba(255, 255, 233, 1)',
-                            borderWidth: 1,
-                        }, 
-
-                        {
-                            label: 'Senior',
-                            data: [
-                                graphData[1][2], 
-                                graphData[2][2],
-                                graphData[3][2], 
-                                graphData[4][2], 
-                                graphData[5][2], 
-                                graphData[6][2], 
-                                graphData[0][2]
-                            ],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                            ],
-                            borderColor: 'rgba(255, 255, 233, 1)',
-                            borderWidth: 1,
-                        },
-                    ]
-                }}
+                data={data}
                 height={400}
                 width={600}
                 options={{
