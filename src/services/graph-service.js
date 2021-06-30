@@ -14,6 +14,7 @@ export default function GraphService (index) {
         [0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0]
     ];   
+    
 
     state.arrObjs.forEach((item) => {
         if (state.activeDevices.indexOf(item["n"]) !== -1) {
@@ -21,22 +22,25 @@ export default function GraphService (index) {
 
             item["o"].forEach((date) => {
                 let index = new Date(date["n"]).getDay();
-                date["o"].forEach((user) =>{                
-                    switch(user["n"]){
+                date["o"].forEach((user) =>{  
+                    const GraphDataPreset = (set) => {
+                        return graphData[index][set] += user["v"];
+                     };       
+                    switch(user["n"]){                        
                         case "adult":
-                            graphData[index][0] += user["v"];
+                            GraphDataPreset(0);
                             break;
                         case "kid":
-                            graphData[index][1] += user["v"];
+                            GraphDataPreset(1);
                             break;
                         case "old":
-                            graphData[index][2] += user["v"];
+                            GraphDataPreset(2);
                             break;
                         case "undefined":
-                            graphData[index][3] += user["v"];
+                            GraphDataPreset(3);
                             break;
                         case "young":
-                            graphData[index][4] += user["v"];
+                            GraphDataPreset(4);
                             break;
                             default:  
                             console.log('error');
