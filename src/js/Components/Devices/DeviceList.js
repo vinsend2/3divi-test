@@ -15,14 +15,23 @@ const DeviceListSection = styled.section`
 
 function DeviceList(props) {
   const devices = useSelector(state => state.devices); 
+  const arr = useSelector(state => state);  
+
+  let arrNotNull = [];
+  arr.arrObjs.forEach((item) => {
+     arrNotNull.push(item["v"] !== 0)           
+  })
+
+
   
   return (
     <DeviceListSection>
       {
-        devices.map(item => (
+        devices.map((item, index) => (
           <DeviceListItem
           key={item}
-            id={item} 
+          id={item} 
+          deactive={arrNotNull[index]}
           />
         ))
       }

@@ -18,6 +18,9 @@ const DeviceListItemSection = styled.div`
 function DeviceListItem (props) {
     const [isActive, setActive] = useState(true);
     const [id] = useState(props.id);
+    const [deactive] = useState(props.deactive);
+
+    console.log(deactive);
 
     const dispatch = useDispatch();
 
@@ -31,10 +34,12 @@ function DeviceListItem (props) {
         }
     }
 
+   
+
     return (
         <DeviceListItemSection className="device-list__item">           
             
-            <input type="checkbox" className="device-list__item-checkbox" name="devices" value={id} checked={isActive} onClick={handleActivesChange} onChange={e => {}} />
+            <input type="checkbox" className="device-list__item-checkbox" name="devices" disabled={!deactive} value={id} checked={isActive} onClick={handleActivesChange} onChange={e => {}} />
             <label className="device-list__item-header" name="devices" value={id} checked={isActive} onClick={handleActivesChange} onChange={e => {}}>{id} </label>
         </DeviceListItemSection>
     );

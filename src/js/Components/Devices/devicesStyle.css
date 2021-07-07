@@ -30,6 +30,11 @@
      content: "\2713";
     
 }
+
+.device-list__item input[type=checkbox]:disabled + label::after {
+    color: red;
+   
+}
 .device-list__item:hover, label:hover{
     cursor: pointer;
     font-weight: 600;
